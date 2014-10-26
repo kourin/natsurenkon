@@ -1,0 +1,20 @@
+function AutoResample(clip c, int "dest_rate")
+{
+    dest_default = 48000
+    dest_rate = default(dest_rate, dest_default)
+    dest_rate = dest_rate < 0 || dest_rate > 19200 ? dest_default : dest_rate
+    src_rate = c.audiorate() == 0 ? dest_rate : c.audiorate()
+
+    herpderp = (dest_rate > src_rate ? src_rate : dest_rate) / gcd(src_rate, dest_rate)
+
+    return dest_rate == src_rate ? c :
+\          herpderp % 2 == 0 || herpderp % 3 == 0 || herpderp % 4 == 0 ? c.SSRC(dest_rate, false) :
+\          c.ResampleAudio(dest_rate)
+}
+
+function gcd(int x, int y)
+{
+    # ‚±‚Ìê‡Ax‚Æy‚Íí‚É³‚Ì®”‚Å‚ ‚é‚±‚Æ‚ª•ÛØ‚³‚ê‚Ä‚¢‚éB
+    t = x % y
+    return t == 0 ? y : gcd(y, t)
+}

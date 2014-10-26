@@ -1,0 +1,1 @@
+"%WINDIR%\Media\tada.wav"

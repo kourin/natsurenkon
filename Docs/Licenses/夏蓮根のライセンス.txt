@@ -1,0 +1,40 @@
+夏蓮根に関しては、再配布、同梱等含めご自由にどうぞ(特に制限することはありません)。
+改造版を再配布する場合には、changelog.txtの更新をお願いします。
+
+ただし、同梱している下記ツールについては、それぞれのライセンス(同梱してあります)に従ってください。
+　7z ( http://sevenzip.sourceforge.jp/ ), LGPL
+　Avisynth.dll (AviSynth developers、http://sourceforge.net/projects/avisynth2/ ), GPL 2 or later
+　Avs2avi( http://www.moitah.net/ http://www.avisynth.info/?%A5%A2%A1%BC%A5%AB%A5%A4%A5%D6 ), GPL 2
+　Avs2pipemod ( http://doom10.org/index.php?topic=759 https://github.com/chikuzen/avs2pipemod ), GPL 3
+　avs4x264mod ( https://github.com/astrataro/avs4x264mod ), GPL 2 or later
+　curl.exe libssh2.dll ( http://curl.haxx.se/ ), MIT/X derivate
+　DevIL.dll（Denton Woods & Nicolas Weber & Meloni Dario、http://openil.sourceforge.net/ ）, LGPL
+　DirectShow File Reader plugin for AviUtl ( http://videoinfo.tenchi.ne.jp/index.php?DirectShow%20File%20Reader%20%A5%D7%A5%E9%A5%B0%A5%A4%A5%F3%20for%20AviUtl ), freeware
+　DirectShowSource.dll（AviSynth developers、http://sourceforge.net/projects/avisynth2/ ), GPL 2
+　fdkaac_builder (rndom http://bit.ly/1r3BwGy ), freeware + MinGW (Public Domain + GPL + other)
+　FFmpeg.exe, ffprobe.exe (FFmpeg http://www.ffmpeg.org/ ), LGPL 2.1+
+　FFMS2.dll (Myrsloik、http://code.google.com/p/ffmpegsource/ ),GPL 3
+　LSMASHSource.dll (L-SMASH_Works https://github.com/VFR-maniac/L-SMASH-Works ), LGPL
+　libiconv2.dll ( http://www.gnu.org/software/libiconv ), GPL
+　libintl3.dll ( http://gnuwin32.sourceforge.net/packages/libintl.htm ), GPL
+　libeay32.dll ssleay32.dll (openSSL http://gnuwin32.sourceforge.net/packages/openssl.htm ), GPL
+　MediaInfo.dll、MediaInfo.exe(MediaArea.net SARL.、http://mediainfo.sourceforge.net/ ), LGPL 3 or later
+　Minimal DirectShow Player (UMEZAWA Takeshi, http://umezawa.dyndns.info/wordpress/?cat=57 ), GPL 2 or later
+　mkvmerge.exe (mkvtoolnix http://www.bunkus.org/videotools/mkvtoolnix/ ), GPL
+　MP4Box.exe (Jean Le Feuver & ENST、http://github.com/golgol7777/gpac ), LGPL
+　mp4fpsmod (nu774、https://sites.google.com/site/qaacpage/home ), Public Domain (+ MOZILLA PUBLIC LICENSE 1.1 + Boost software licence + BSD)
+　pcre3.dll ( http://www.pcre.org ), BSD
+　playwav.exe (Chikuzen、http://csbarn.blogspot.co.uk/ http://dl.dropbox.com/u/19797864/playwav.zip ), freeware
+　player.swf、swfobject.js（LongTail Video、http://www.longtailvideo.com/players/jw-flv-player/ CC BY-NC-SA 2.0）
+　preaac.bat preaac.js（rndom、http://www1.axfc.net/u/3285901 ), freeware
+　qaac.exe（nu774、https://sites.google.com/site/qaacpage/home ), Public Domain
+　qtaacenc.exe（tmkk、http://tmkk.pv.land.to/qtaacenc/ ), MIT
+　QTsource ( http://www.tateu.net/software/ ), freeware
+　regex2.dll ( http://gnuwin32.sourceforge.net/packages/regex.htm ), GPL
+　sed.exe ( http://www.gnu.org/software/sed/sed.html ), GPL
+　sort.exe (GNU coreutils http://gnuwin32.sourceforge.net/packages/coreutils.htm ), GPL
+　swfextract.exe (SWFTools http://www.swftools.org/ ), GPL
+　LoadPluginEx.dll (warpsharp seraphy ver. http://www.avisynth.info/?%A5%A2%A1%BC%A5%AB%A5%A4%A5%D6#o292a16e ), GPL
+　x264.exe (x264 team、http://www.videolan.org/developers/x264.html ), GPL
+　yadif.dll (Fizick、http://avisynth.org.ru/yadif/yadif.html ), GPL
+　ソースも上記URLから取得できます。

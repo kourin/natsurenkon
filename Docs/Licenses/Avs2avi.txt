@@ -1,0 +1,9 @@
+Command line program that compresses video from an AviSynth script using any VFW codec. Developed by Christophe Paris, David Leatherdale, int21h, and Moitah.
+
+Licence: GPL 2.0
+
+- 1.39
+http://www.moitah.net/
+
+1.40 - 1.41
+http://www.avisynth.info/?%A5%A2%A1%BC%A5%AB%A5%A4%A5%D6
