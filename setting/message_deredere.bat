@@ -70,6 +70,8 @@ set FILE_DROP3=（さきほどの動画の音声を使う場合はもう一度動画をドロップです）
 set FILE_DROP4=ドロップしたら、Enterキーを一回だけ押してくださいね
 set FILE_DROP5=空白や記号が含まれていたら、うまく動かないかもしれません
 set FILENAME_ERROR_MP4=ファイル名を正しく扱かえませんでしたMP4
+set FOLDER_ALERT1=ごめんなさい。このフォルダには書き込みが出来ないみたいです
+set FOLDER_ALERT2=（Program Files以下など書き込み制限のある場所には、夏蓮根を置かないで下さい）
 
 rem avs.bat、cat.bat、movie.bat、mux.batのメッセージ
 set ANALYZE_ANNOUNCE=動画解析中～♪

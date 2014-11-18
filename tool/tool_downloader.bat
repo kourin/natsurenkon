@@ -40,7 +40,9 @@ set MIFN=f
 set MKV=f
 set MP4B=f
 set MP4F=f
+set NERO=f
 set PCRE=f
+set QAA=f
 set QTS=f
 set REG=f
 set SED=f
@@ -49,17 +51,9 @@ set WSS=f
 set X264=f
 set YDF=f
 
-rem audio
-set FDK=f
-set NERO=f
-set QAA=f
-set ITS=f
-set ACA=f
-set AENC=f
-
 call :file_check_sub
 date /t>nul
-echo %AEC%%AVS%%DSS%%FSS%%QTS%%MIF%%YDF%%X264%%A2A%%A2P%%DSF%%FFM%%JWP%%LIC%%LIN%%LSS%%MDP%%MKV%%MP4B%%MP4F%%PCRE%%REG%%SED%%SORT%%WSS%%AENC% | "%WINDIR%\system32\findstr.exe" "f">nul
+echo %AVS%%DSS%%FSS%%QTS%%MIF%%YDF%%NERO%%X264%%A2A%%A2P%%DSF%%FFM%%JWP%%LIC%%LIN%%LSS%%MDP%%MKV%%MP4B%%MP4F%%PCRE%%REG%%SED%%SORT%%QAA%%WSS% | "%WINDIR%\system32\findstr.exe" "f">nul
 if ERRORLEVEL 1 exit
 
 if "%X264%"=="t" goto download_mode
@@ -307,6 +301,16 @@ for %%i in (%PCRE_PATH%) do if %%~zi NEQ %PCRE_SIZE% (
     .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %PCRE_PATH% -L %PCRE_URL2%
     echo;
 )
+if "%QAA%"=="f" (
+    echo ^>^>qaac
+    del /Q ..\Archives\qaac_*.zip 1>nul 2>&1
+    .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %QAA_PATH% -L %QAA_URL%
+    echo;
+)
+for %%i in (%QAA_PATH%) do if %%~zi NEQ %QAA_SIZE% (
+      .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %QAA_PATH% -L %QAA_URL2%
+    echo;
+)
 rem if not "%QAE%"=="t" (
 rem     echo ^>^>qtaacenc
 rem    del /Q ..\Archives\qtaacenc-*.zip 1>nul 2>&1
@@ -382,188 +386,6 @@ rem    .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %X264_PATH% -L %X264_URL1
 rem    echo;
 rem )
 
-
-rem Audio Encoder
-:audio_encoder_select
-if "%NERO%"=="t" goto check
-if "%FDK%"=="t" goto check
-if "%QAAC%"=="t" goto check
-
-:audio_encoder_question
-echo;
-echo;
-echo;
-echo ^>^>%A_ENCODER_SELECT1%
-echo   1: %A_ENCODER_SELECT2%
-echo   2: %A_ENCODER_SELECT3%
-echo   3: %A_ENCODER_SELECT4%
-echo   4: %A_ENCODER_SELECT5%
-echo;    
-echo ^>^>%PAUSE_MESSAGE2%
-set /p AAC_ENCODER=
-
-if "%AAC_ENCODER%"=="1" (
-  set AAC_ENCODERR=fdk
-  goto fdk_install
-) else if "%AAC_ENCODER%"=="2" (
-  set AAC_ENCODER=qt
-  goto qt_install
-) else if "%AAC_ENCODER%"=="3" (
-  set AAC_ENCODER=nero
-  goto nero_install
-) else if "%AAC_ENCODER%"=="4" (
-  set AAC_ENCODER=ffaac
-  set AENC=t
-  goto check
-) else if /i "%AAC_ENCODER%"=="qt" (
-  goto qt_install
-) else if /i "%AAC_ENCODER%"=="nero" (
-  goto nero_install
-) else if /i "%AAC_ENCODER%"=="fdk" (
-  goto fdk_install
-) else if /i "%AAC_ENCODER%"=="ffaac" (
-  goto check
-) else (
-  echo;
-  echo ^>^>%RETURN_MESSAGE1%
-  if not "%HARUMODE%"=="true" (
-    if /i  "%VOICE%"=="true" (
-        if exist "..\Extra\Voice\%VOICE_DIR%\RETURN_MESSAGE1.mp3" (
-          %PLAY_CMD1% "..\Extra\Voice\%VOICE_DIR%\RETURN_MESSAGE1.mp3"
-        ) else if exist "..\Extra\Voice\%VOICE_DIR%\RETURN_MESSAGE1.wav" (
-          %PLAY_CMD1% "..\Extra\Voice\%VOICE_DIR%\RETURN_MESSAGE1.wav"
-        )
-    )
-  )
-  echo;
-  set AAC_ENCODER=
-  goto audio_encoder_question
-)
-
-
-:fdk_install
-if exist fdkaac.exe goto check
-if "%FDKB%"=="f" (
-    echo ^>^>fdkaac builder
-    del /Q ..\Archives\fdkaac_builder_*.zip 1>nul 2>&1
-    .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %FDKB_PATH% -L %FDKB_URL2%
-    echo;
-)
-
-if not exist TEMP mkdir TEMP
-.\7z.exe x -y %FDKB_PATH% -oTEMP
-cd TEMP\fdkaac_builder
-./builder.bat
-if not exist fdkaac.exe (
-  echo ^>^>%FDKAAC_BUILD_FAIL1%
-  echo ^>^>%FDKAAC_BUILD_FAIL2%
-  echo ^>^>%FDKAAC_BUILD_FAIL3%
-  goto audio_encoder_question 
-)
-cp /y fdkaac.exe ../
-cd ..\..
-goto check
-rem rmdir in tool_installer.bat L35
-
-:qt_install
-call :ITS_CHECK
-if "%ITS%"=="t" goto qaac_dl
-
-echo ^>^>%COREAUDIO_INSTALL1%
-echo ^>^>%COREAUDIO_INSTALL2%
-set /p ITUNES_DL_OPEN=
-
-if /i not "%ITUNES_DL_OPEN%"=="y" goto preaac_dl
-
-pause>nul
-echo;
-start rundll32 url.dll,FileProtocolHandler "http://www.apple.com/jp/itunes/download/"
-
-echo %COREAUDIO_INSTALL3%
-pause>nul
-echo;
-
-:preaac_dl
-call :ITS_CHECK
-if "%ITS%"=="t" goto qaac_dl
-echo ^>^>%COREAUDIO_INSTALL4%
-echo ^>^>%PAUSE_MESSAGE2%
-pause>nul
-echo;
-
-if "%PREA%"=="f" (
-    echo ^>^>preaac
-    del /Q ..\Archives\preaac_*.zip 1>nul 2>&1
-    .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %PREA%_PATH% -L %PREA_URL2%
-    echo;
-)
-for %%i in (%PREA_PATH%) do if %%~zi NEQ %PREA_SIZE% (
-      .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %PREA_PATH% -L %PREA_URL3%
-    echo;
-)
-
-.\7z.exe x -y %PREA_PATH%
-cd preaac
-./builder.bat
-if not exist qaac\CoreAudioToolbox.dll (
-  echo ^>^>%PREAAC_SETUP_FAIL1%
-  echo ^>^>%PREAAC_SETUP_FAIL2%
-  echo ^>^>%PREAAC_SETUP_FAIL3%
-  goto audio_encoder_question 
-)
-
-if exist qaac\qaac.exe (
-  set QAA=t
-  goto check
-)
-
-:qaac_dl
-if "%QAA%"=="f" (
-    echo ^>^>qaac
-    del /Q ..\Archives\qaac_*.zip 1>nul 2>&1
-    .\curl.exe -k %PROXY% --connect-timeout 5 -f -o %QAA_PATH% -L %QAA_URL%
-    echo;
-)
-
-goto check
-
-:nero_install
-if "%NERO%"=="t" (
-  set AENC=t
-  goto check
-)
-if exist neroAacEnc.exe (
-  set NERO=t
-  set AENC=t
-  goto check
-)
-for %%i in (%NERO_PATH%) do if %%~zi EQU %NERO_SIZE% (
-  set NERO=t
-  set AENC=t
-  goto check
-)
-echo;
-echo;
-echo;
-echo ^>^>%NERO_INSTALL1%
-echo ^>^>%NERO_INSTALL2%
-set /p NERO_CHECK=^>^>
-
-if /i "%NERO_CHECK%"=="n" goto audio_encoder_select
-if exist neroAacEnc.exe (
-  set NERO=t
-  set AENC=t
-  goto check
-)
-for %%i in (%NERO_PATH%) do if %%~zi EQU %NERO_SIZE% (
-  set NERO=t
-  set AENC=t
-  goto check
-)
-echo ^>^>%NERO_INSTALL3%
-goto nero_install
-
-:nero_dl
 if "%NERO%"=="t" goto check
 echo;
 echo;
@@ -586,8 +408,8 @@ rem  )
 rem )
 pause>nul
 echo;
-rem start rundll32 url.dll,FileProtocolHandler "http://www.nero.com/enu/company/about-nero/nero-aac-codec.php"
-start rundll32 url.dll,FileProtocolHandler "..\Docs\Licenses\Nero_AAC_Encoder_license.txt"
+start rundll32 url.dll,FileProtocolHandler "http://www.nero.com/jpn/company/about-nero/nero-aac-codec.php"
+rem start rundll32 url.dll,FileProtocolHandler "..\Docs\Licenses\Nero_AAC_Encoder_license.txt"
 
 :agree
 echo ^>^>%NERO_QUESTION%
@@ -700,7 +522,7 @@ rem ################落とせたかどうかをチェック################
 :check
 call :file_check_sub
 date /t>nul
-echo %AVS%%DSS%%FSS%%QTS%%MIF%%YDF%%X264%%A2A%%A2P%%DSF%%FFM%%JWP%%LIC%%LIN%%LSS%%MDP%%MKV%%MP4B%%MP4F%%PCRE%%REG%%SED%%SORT%%WSS%%AENC% | "%WINDIR%\system32\findstr.exe" "f">nul
+echo %AVS%%DSS%%FSS%%QTS%%MIF%%YDF%%NERO%%X264%%A2A%%A2P%%DSF%%FFM%%JWP%%LIC%%LIN%%LSS%%MDP%%MKV%%MP4B%%MP4F%%PCRE%%REG%%SED%%SORT%%QAA%%WSS% | "%WINDIR%\system32\findstr.exe" "f">nul
 if not ERRORLEVEL 1 goto dl_fail
 
 rem ################成功################
@@ -800,8 +622,10 @@ if "%MIFN%"=="t" set MIF=t
 for %%i in (%MKV_PATH%) do if %%~zi EQU %MKV_SIZE% set MKV=t
 for %%i in (%MP4B_PATH%) do if %%~zi EQU %MP4B_SIZE% set MP4B=t
 for %%i in (%MP4F_PATH%) do if %%~zi EQU %MP4F_SIZE% set MP4F=t
+for %%i in (%NERO_PATH%) do if %%~zi EQU %NERO_SIZE% set NERO=t
 for %%i in (%PCRE_PATH%) do if %%~zi EQU %PCRE_SIZE% set PCRE=t
 for %%i in (%REG_PATH%) do if %%~zi EQU %REG_SIZE% set REG=t
+for %%i in (%QAA_PATH%) do if %%~zi EQU %QAA_SIZE% set QAA=t
 rem for %%i in (%QAE_PATH%) do if %%~zi EQU %QAE_SIZE% set QAE=t
 for %%i in (%QTS_PATH%) do if %%~zi EQU %QTS_SIZE% set QTS=t
 for %%i in (%SED_PATH%) do if %%~zi EQU %SED_SIZE% set SED=t
@@ -810,35 +634,8 @@ for %%i in (%WSS_PATH%) do if %%~zi EQU %WSS_SIZE% set WSS=t
 for %%i in (%YDF_PATH%) do if %%~zi EQU %YDF_SIZE% set YDF=t
 for %%i in (%X264_PATH%) do if %%~zi EQU %X264_SIZE% set X264=t
 
-rem audio encoder
-for %%i in (%NERO_PATH%) do if %%~zi EQU %NERO_SIZE% set NERO=t
-if exist neroaacenc.exe set NERO=t
-for %%i in (%FDKB_PATH%) do if %%~zi EQU %FDKB_SIZE% set FDKB=t
-if exist fdkaac.exe set FDK=t
-call :COREAUDIO_CHECK
-for %%i in (%PREA_PATH%) do if %%~zi EQU %PREA_SIZE% set PREA=t
-for %%i in (%QAA_PATH%) do if %%~zi EQU %QAA_SIZE% set QAA=t
-
-if "%NERO%"=="t" (
-  set AENC=t
-) else if "%FDK%"=="t" (
-  set AENC=t
-) else if "%COREAUDIO%"=="true" (
-  if "%QAA%"=="t" set AENC=t
-)
-
 if exist %X264_PATH% (
   if exist x264.exe del x264.exe
   if exist ..\Archives\x264.exe del ..\Archives\x264.exe
 )
-exit /b
-
-:COREAUDIO_CHECK
-if exist "%ProgramFiles(x86)%\Common Files\Apple\Apple Application Support\CoreAudioToolbox.dll" (
-   set COREAUDIO=true
-) else if exist "%ProgramFiles%\Common Files\Apple\Apple Application Support\CoreAudioToolbox.dll" (
-   set COREAUDIO=true
-) else if exist "qaac\CoreAudioToolbox.dll" (
-   set COREAUDIO=true
-) else set COREAUDIO=false
 exit /b

@@ -32,8 +32,6 @@ if not "%HARUMODE%"=="true" (
 )
 echo;
 
-if exist %TEMP_DIR0%\fdkaac_builder rmdir /s /q %TEMP_DIR0%\fdkaac_builder
-
 .\7z.exe e -bd -y %AVS_PATH% "avisynth.dll" "devil.dll"
 .\7z.exe e -bd -y %A2A_PATH% "avs2avi\Release\avs2avi.exe"
 .\7z.exe e -bd -y %A2P_PATH% "avs2pipemod.exe"
@@ -43,11 +41,7 @@ rem .\7z.exe e -bd -y %A4X_PATH% "avs4x264mod.exe"
 rem .\7z.exe e -bd -y %DIL_PATH% "DevIL.dll"
 .\7z.exe e -bd -y %FFM_PATH% "ffmpeg-%FFM_VER%-win32-static\bin\ffmpeg.exe" "ffmpeg-%FFM_VER%-win32-static\bin\ffprobe.exe"
 rem .\7z.exe e -bd -y %FSS_PATH% "*\x86\ffms2.dll" "*\x86\ffmsindex.exe"
-if "%XARCH%"=="64bit" (
-  .\7z.exe e -bd -y %FSS_PATH% "*\x64\ffms2.dll" "*\x64\ffmsindex.exe"
-) else (
-  .\7z.exe e -bd -y %FSS_PATH% "*\x86\ffms2.dll" "*\x86\ffmsindex.exe"
-)
+.\7z.exe e -bd -y %FSS_PATH% "*\ffms2.dll" "*\ffmsindex.exe"
 .\7z.exe e -bd -y %LIC_PATH% "bin\libiconv2.dll"
 .\7z.exe e -bd -y %LIN_PATH% "bin\libintl3.dll"
 rem pop
@@ -70,7 +64,15 @@ if "%XARCH%"=="64bit" (
   move /Y MP4Box_%MP4B_VER%.exe MP4Box.exe
 )
 .\7z.exe e -bd -y %MP4F_PATH% "mp4fpsmod_%MP4F_VER%\mp4fpsmod.exe" "mp4fpsmod_%MP4F_VER%\*.dll"
+.\7z.exe e -bd -y %NERO_PATH% "win32\neroAacEnc.exe"
 .\7z.exe e -bd -y %PCRE_PATH% "bin\pcre3.dll"
+.\7z.exe e -bd -y %QAA_PATH% "qaac_%QAA_VER%\x86\qaac.exe"
+if not exist msvcp120.dll (
+  .\7z.exe e -bd -y %QAA_PATH% "qaac_%QAA_VER%\x86\msvcp120.dll" >nul 2>&1
+)
+if not exist msvcr120.dll (
+  .\7z.exe e -bd -y %QAA_PATH% "qaac_%QAA_VER%\x86\msvcr120.dll" >nul 2>&1
+)
 
 rem .\7z.exe e -bd -y %QAE_PATH% "qtaacenc-%QAE_VER%\qtaacenc.exe"
 .\7z.exe e -bd -y %QTS_PATH% "QTSource.dll"
@@ -80,18 +82,6 @@ rem .\7z.exe e -bd -y %QAE_PATH% "qtaacenc-%QAE_VER%\qtaacenc.exe"
 move /Y .\date.exe GNU_date.exe
 .\7z.exe e -bd -y %WSS_PATH% "VC09\warpsharp.dll"
 .\7z.exe e -bd -y %YDF_PATH% "yadif.dll"
-
-:audio_encoder_install
-if A_ENCODER="nero" (
-  if not exist neroaacenc.exe (
-    .\7z.exe e -bd -y %NERO_PATH% "win32\neroAacEnc.exe"
-  )
-  goto x264_install
-)
-
-if A_ENCODER="fdkaac" call :fdkaac_setup
-
-if A_ENCODER="qaac" call :qaac_setup
 
 :x264_install
 for /f %%i in (%X264_PATH%) do (
@@ -168,14 +158,12 @@ if not exist mp4fpsmod.exe start /wait call initialize.bat
 if not exist neroAacEnc.exe echo neroAacEnc.exe is missing
 if not exist pcre3.dll echo pcre3.dll is missing
 if not exist player.swf echo player.swf is missing
+if not exist qaac.exe echo qaac.exe is missing
 if not exist regex2.dll echo regex2.dll is missing
 if not exist sed.exe echo sed.exe is missing
 if not exist sort.exe echo sort.exe is missing
 if not exist warpsharp.dll echo warpsharp.dll is missing
 if not exist yadif.dll echo yadif.dll is missing
-
-if "%AENC%"=""%
-
 if not exist %X264EXE% echo %X264EXE% is missing
 .\%X264EXE% --version>"%TEMP_DIR0%\x264_version.txt" 2>nul
 "%WINDIR%\system32\findstr.exe" /i "%X264_VERSION%" "%TEMP_DIR0%\x264_version.txt">nul 2>&1
@@ -205,28 +193,3 @@ rem  )
 rem )
 pause>nul
 exit
-
-:qaac_setup
-if not exist qaac mkdir qaac
-if exist qaac.exe del /f qaac.exe
-
-.\7z.exe e -bd -y %QAA_PATH% -oqaac "qaac_%QAA_VER%\x86\qaac.exe"
-
-if not exist qaac\msvcp120.dll (
-  .\7z.exe e -bd -y %QAA_PATH% -oqaac "qaac_%QAA_VER%\x86\msvcp120.dll" >nul 2>&1
-)
-if not exist qaac\msvcr120.dll (
-  .\7z.exe e -bd -y %QAA_PATH% -oqaac "qaac_%QAA_VER%\x86\msvcr120.dll" >nul 2>&1
-)
-
-if exist "%ProgramFiles(x86)%\Common Files\Apple\Apple Application Support\CoreAudioToolbox.dll" (
-   set COREAUDIO=true
-) else if exist "%ProgramFiles%\Common Files\Apple\Apple Application Support\CoreAudioToolbox.dll" (
-   set COREAUDIO=true
-) else if exist "qaac\CoreAudioToolbox.dll" (
-   set COREAUDIO=true
-) else set COREAUDIO=false
-
-
-
-

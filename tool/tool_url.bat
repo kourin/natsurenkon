@@ -30,6 +30,15 @@ REM License: LGPL
 set 7Z_URL="http://downloads.sourceforge.net/project/sevenzip/7-Zip/9.22/7z922.exe"
 set 7Z_SIZE=384846
 
+REM AviSynth
+REM License: GPL 2 or later
+set AVS_VER=2.6.0alpha5
+set AVS_URL="http://downloads.sourceforge.net/project/avisynth2/AviSynth_Alpha_Releases/AVS%%202.6.0%%20Alpha%%205%%20%%5B130918%%5D/AviSynth_130918.exe"
+set AVS_URL3="http://jaist.dl.sourceforge.net/project/avisynth2/AviSynth_Alpha_Releases/AVS%%202.6.0%%20Alpha%%205%%20%%5B130918%%5D/AviSynth_130918.exe"
+set AVS_URL2="http://dl.dropbox.com/u/9397178/binary/AviSynth_130918.exe"
+set AVS_PATH="..\Archives\Avisynth_130918.exe"
+set AVS_SIZE=5270621
+
 REM avs2avi
 REM License: GPL 2.0
 set A2P_VER=140a
@@ -54,15 +63,6 @@ set A4X_URL="http://www.nmm-hd.org/upload/get~QPKRk5r31r0/avs4x264mod-%A4X_VER%.
 set A4X_URL2="http://dl.dropbox.com/u/9397178/avs4x264mod-%A4X_VER%.7z"
 set A4X_PATH="..\Archives\avs4x264mod-%A4X_VER%.7z"
 set A4X_SIZE=15203
-
-REM AviSynth
-REM License: GPL 2 or later
-set AVS_VER=2.6.0alpha5
-set AVS_URL="http://downloads.sourceforge.net/project/avisynth2/AviSynth_Alpha_Releases/AVS%%202.6.0%%20Alpha%%205%%20%%5B130918%%5D/AviSynth_130918.exe"
-set AVS_URL3="http://jaist.dl.sourceforge.net/project/avisynth2/AviSynth_Alpha_Releases/AVS%%202.6.0%%20Alpha%%205%%20%%5B130918%%5D/AviSynth_130918.exe"
-set AVS_URL2="http://dl.dropbox.com/u/9397178/binary/AviSynth_130918.exe"
-set AVS_PATH="..\Archives\Avisynth_130918.exe"
-set AVS_SIZE=5270621
 
 REM curl
 REM License: MIT/X derivate

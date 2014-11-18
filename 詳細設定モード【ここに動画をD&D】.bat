@@ -150,20 +150,26 @@ echo 　　　preset : version %THIS_VERSION%
 echo %HORIZON_B%
 
 rem ################フォルダ作成################
-rem 一時ファイルを保存するフォルダを変更したいときはここを弄ってください
-rem ただ、エンコ後に一時ファイルを全て削除するので誤作動が怖い場合は弄らないでください
+rem 一時ファイルを保存するフォルダは変更しないで下さい
+rem 不都合がある場合は、夏蓮根をフォルダごと移動させて下さい
 set TEMP_DIR0=TEMP
 
 if not exist %TEMP_DIR0% mkdir %TEMP_DIR0%
 if not exist %MP4_DIR% mkdir %MP4_DIR%
 
+
+rem ################フォルダ書き込みテスト################
 set RMD=%RANDOM%
 echo %RMD% > %TEMP_DIR0%\temp.txt
 "%WINDIR%\system32\findstr.exe" "%RMD%" %TEMP_DIR0%\temp.txt 1>nul 2>&1
 if ERRORLEVEL 1 (
-    echo ^>^>%PRESET_ALERT%
+    echo ^>^>%FOLDER_ALERT1%
+    echo ^>^>%FOLDER_ALERT2%
     echo 
+    call .\quit.bat
+)
 
+:ver_check
 rem ################バージョンチェック################
 if "%~1"=="" (
     call .\version_check.bat

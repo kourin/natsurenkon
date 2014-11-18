@@ -70,6 +70,8 @@ set FILE_DROP3=i‚³‚«‚Ù‚Ç‚Ì“®‰æ‚Ì‰¹º‚ðŽg‚¤ê‡‚Í‚à‚¤ˆê“x“®‰æ‚ðƒhƒƒbƒv‚µ‚Ä‚­‚¾‚
 set FILE_DROP4=ƒhƒƒbƒv‚µ‚½‚çAEnterƒL[‚ðˆê‰ñ‚¾‚¯‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢
 set FILE_DROP5=‹ó”’‚â‹L†‚ªŠÜ‚Ü‚ê‚Ä‚¢‚½‚çA‚¤‚Ü‚­“®‚©‚È‚¢‚©‚à‚µ‚ê‚Ü‚¹‚ñ
 set FILENAME_ERROR_MP4=³‚µ‚­ˆµ‚©‚¦‚È‚¢ƒtƒ@ƒCƒ‹–¼‚Å‚µ‚½MP4
+set FOLDER_ALERT1=‚²‚ß‚ñ‚È‚³‚¢B‚±‚ÌƒtƒHƒ‹ƒ_‚É‚Í‘‚«ž‚Ý‚ªo—ˆ‚È‚¢‚Ý‚½‚¢‚Å‚·
+set FOLDER_ALERT2=iProgram FilesˆÈ‰º‚È‚Ç‘‚«ž‚Ý§ŒÀ‚Ì‚ ‚éêŠ‚É‚ÍA‰Ä˜@ª‚ð’u‚©‚È‚¢‚Å‰º‚³‚¢j
 
 rem avs.batAcat.batAmovie.batAmux.bat‚ÌƒƒbƒZ[ƒW
 set ANALYZE_ANNOUNCE=“®‰æ‰ðÍ’†`ô
