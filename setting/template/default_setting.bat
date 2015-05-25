@@ -1,7 +1,7 @@
 rem ‚±‚Ìƒtƒ@ƒCƒ‹‚Í‚¢‚¶‚ç‚È‚¢‚Å‚­‚¾‚³‚¢
 rem ‚¢‚¶‚é‚È‚çenc_setting.bat‚Æuser_setting.bat‚Ì•û‚ð‚¢‚¶‚Á‚Ä‚­‚¾‚³‚¢
 
-set THIS_VERSION=32
+set THIS_VERSION=33
 
 call ..\setting\message_tsundere.bat
 set VOICE_DIR=sasara_mp3
@@ -32,7 +32,7 @@ set AAC_ENCODER=nero
 set AAC_PROFILE=auto
 set MAX_SAMPLERATE=48000
 set TRIM_AUDIO=true
-set COLORMATRIX=BT.601
+set COLORMATRIX=BT.709
 set FULL_RANGE=off
 set DEFAULT_SIZE_PREMIUM=100
 set DEFAULT_SIZE_NORMAL=40

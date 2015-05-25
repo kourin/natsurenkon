@@ -857,6 +857,14 @@ if "%A_BITRATE%"=="0" (
     goto movie_enc
 )
 
+if "%A_BITRATE%"=="0" (
+    echo ^>^>%SILENCE_ANNOUNCE%
+    echo;
+    .\silence.exe %FINAL_WAV% -l 0.1 -c 2 -s 44100 -b 16
+    .\neroAacEnc.exe -lc -br 0 -if %FINAL_WAV% -of %TEMP_M4A%
+    goto :eof
+)
+
 if "%SKIP_A_ENC%"=="true" (
     echo ^>^>%SKIP_A_ENC_ANNOUNCE%
     echo;
@@ -1214,10 +1222,12 @@ echo;
     echo LoadPlugin^("ffms2.dll"^)
     echo;
     echo fps_num = Int^(%FPS% * 1000^)
-    if "%VFR%"=="true" (
+    if not "%VFR%"=="true" (
         echo FFVideoSource^(%INPUT_FILE_PATH%,cachefile="input.ffindex",seekmode=%SEEKMODE%,threads=1^)
-    ) else (
+    ) else if "%CHANGE_FPS%"=="true" (
         echo FFVideoSource^(%INPUT_FILE_PATH%,cachefile="input.ffindex",seekmode=%SEEKMODE%,threads=1,fpsnum=fps_num, fpsden=1000^)
+    ) else (
+        echo FFVideoSource^(%INPUT_FILE_PATH%,cachefile="input.ffindex",seekmode=%SEEKMODE%,threads=1^)
     )
 )> %VIDEO_AVS%
 

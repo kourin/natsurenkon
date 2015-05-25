@@ -66,13 +66,10 @@ if "%XARCH%"=="64bit" (
 .\7z.exe e -bd -y %MP4F_PATH% "mp4fpsmod_%MP4F_VER%\mp4fpsmod.exe" "mp4fpsmod_%MP4F_VER%\*.dll"
 .\7z.exe e -bd -y %NERO_PATH% "win32\neroAacEnc.exe"
 .\7z.exe e -bd -y %PCRE_PATH% "bin\pcre3.dll"
+if "%XARCH%"=="64bit" (
+    .\7z.exe e -bd -y %QAA_PATH% "qaac_%QAA_VER%\x64\qaac64.exe"
+)
 .\7z.exe e -bd -y %QAA_PATH% "qaac_%QAA_VER%\x86\qaac.exe"
-if not exist msvcp120.dll (
-  .\7z.exe e -bd -y %QAA_PATH% "qaac_%QAA_VER%\x86\msvcp120.dll" >nul 2>&1
-)
-if not exist msvcr120.dll (
-  .\7z.exe e -bd -y %QAA_PATH% "qaac_%QAA_VER%\x86\msvcr120.dll" >nul 2>&1
-)
 
 rem .\7z.exe e -bd -y %QAE_PATH% "qtaacenc-%QAE_VER%\qtaacenc.exe"
 .\7z.exe e -bd -y %QTS_PATH% "QTSource.dll"

@@ -1,6 +1,6 @@
 @echo off
 
-rem 2014-08-17
+rem 2015-05-25
 
 set VER_URL="http://bit.ly/xcX4gp"
 set VER_PATH=".\latest_version"
@@ -151,15 +151,15 @@ set LIN_SIZE=394081
 
 REM L-SMASH Works
 REM License: LGPL
-set LSS_VER=r726-g7a8d8a7
-rem set LSS_URL="http://pop.4-bit.jp/bin/l-smash/L-SMASH_Works_%LSS_VER%_plugin-set.zip"
-rem set LSS_URL2="http://dl.dropbox.com/u/9397178/binary/L-SMASH_Works_%LSS_VER%_plugin-set.zip"
-rem set LSS_PATH="..\Archives\L-SMASH_Works_%LSS_VER%_plugin-set.zip"
+set LSS_VER=r733
+set LSS_URL="http://pop.4-bit.jp/bin/l-smash/L-SMASH_Works_%LSS_VER%_plugin-set.zip"
+set LSS_URL2="http://dl.dropbox.com/u/9397178/binary/L-SMASH_Works_%LSS_VER%_plugin-set.zip"
+set LSS_PATH="..\Archives\L-SMASH_Works_%LSS_VER%_plugin-set.zip"
 rem LSS_URL0="https://drive.google.com/file/d/0BwV03nn6LPd9eW0zekRGajVibzQ/edit?usp=sharing"
-set LSS_URL="http://dl.dropbox.com/u/9397178/binary/L-SMASH-Works_%LSS_VER%.7z"
-set LSS_URL2="http://kourindrug.sakura.ne.jp/files/tde/Sources/L-SMASH-Works_%LSS_VER%.7z"
-set LSS_PATH="..\Archives\L-SMASH-Works_%LSS_VER%.7z"
-set LSS_SIZE=11353463
+rem set LSS_URL="http://dl.dropbox.com/u/9397178/binary/L-SMASH-Works_%LSS_VER%.7z"
+rem set LSS_URL2="http://kourindrug.sakura.ne.jp/files/tde/Sources/L-SMASH-Works_%LSS_VER%.7z"
+rem set LSS_PATH="..\Archives\L-SMASH-Works_%LSS_VER%.7z"
+set LSS_SIZE=20878851
 
 REM MediaInfo
 REM License: LGPL 3 or later
@@ -247,12 +247,12 @@ set PREA_SIZE=397264
 
 REM qaac
 REM License: Public Domain
-set QAA_VER=2.42
+set QAA_VER=2.49
 set QAA_URL="https://sites.google.com/site/qaacpage/cabinet/qaac_%QAA_VER%.zip"
 set QAA_URL2="https://dl.dropboxusercontent.com/u/9397178/binary/qaac_%QAA_VER%.zip"
 set QAA_URL3="http://kourindrug.sakura.ne.jp/files/tde/Sources/qaac_%QAA_VER%.zip"
 set QAA_PATH="..\Archives\qaac_%QAA_VER%.zip"
-set QAA_SIZE=2921433
+set QAA_SIZE=2915460
 
 REM qtaacenc
 REM License: MIT
@@ -317,14 +317,14 @@ set YDF_SIZE=52095
 
 REM x264
 REM License: GPL
-set X264_VERSION=2431
+set X264_VERSION=2538
 if "%XARCH%"=="32bit" (
 rem  set X264_URL1="http://pop.4-bit.jp/bin/x264/x264-r%X264_VERSION%_win32_lsmash.zip"
   set X264_URL1="http://komisar.gin.by/old/%X264_VERSION%/x264.%X264_VERSION%.x86.exe"
   set X264_URL2="http://dl.dropbox.com/u/9397178/binary/x264.%X264_VERSION%.x86.7z"
   set X264_URL3="http://kourindrug.sakura.ne.jp/files/tde/Sources/x264.%X264_VERSION%.x86.7z"
   set X264_PATH="..\Archives\x264.%X264_VERSION%.x86.7z"
-  set X264_SIZE=2828127
+  set X264_SIZE=2827986
   set X264EXE=x264_x86.exe
 ) else (
 rem  set X264_URL1="http://pop.4-bit.jp/bin/x264/x264-r%X264_VERSION%_win64_lsmash.zip"
@@ -333,8 +333,8 @@ rem  set X264_URL1="http://pop.4-bit.jp/bin/x264/x264-r%X264_VERSION%_win64_lsma
   set X264_URL3="http://kourindrug.sakura.ne.jp/files/tde/Sources/x264.%X264_VERSION%.x86_64.7z"
   set X264_PATH="..\Archives\x264.%X264_VERSION%.x86_64.7z"
   set X264EXE=x264_x64.exe
-  set X264_SIZE=3068478
-  set X264_X64_SIZE=3068478
+  set X264_SIZE=3181351
+  set X264_X64_SIZE=3181351
 )
 rem set X264_URL1="https://drive.google.com/folderview?id=0BwV03nn6LPd9SC1zVnFxVmN2QTQ&usp=sharing&tid=0BwV03nn6LPd9clpDcnl0bjU0NDg"
 rem set X264_URL2="http://dl.dropbox.com/u/9397178/binary/x264.p.r%X264_VERSION%.7z"

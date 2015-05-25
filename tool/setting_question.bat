@@ -69,7 +69,13 @@ if "%HARUTYPE%"=="youtube" (
   set ENCTYPE=y
   if not defined TEMP_BITRATE set /a TEMP_BITRATE=256
 ) else if "%HARUTYPE%"=="premiummovie" (
-  if not defined PRETYPE set PRETYPE=m
+  if not defined PRETYPE (
+    if P_TEMP_BITRATE GTR 1000 
+      set PRETYPE=m
+    ) else (
+      set PRETYPE=n
+    )
+  )
   set ACTYPE=y
   if not defined ENCTYPE set ENCTYPE=n
   if not defined T_BITRATE set /a T_BITRATE=1500
@@ -955,7 +961,7 @@ if /i "%PRETYPE%"=="y" (
         set /a TP_TEMP_BITRATE=%Y_I_TEMP_BITRATE%
     )
 ) else if /i "%PRETYPE%"=="a" (
-        set /a T_BITRATE=%P_TEMP_BITRATE%
+        if "%T_BITRATE%"=="" set /a T_BITRATE=%P_TEMP_BITRATE%
         exit /b
 ) else if /i "%CRFMODE%"=="y" (
         set /a T_BITRATE=%Y_P_TEMP_BITRATE%
@@ -1965,12 +1971,15 @@ if "%FINAL_FILE%"=="%FILENAME_ERROR_MP4%" (
 ) else (
   echo %CONFIRM_FILENAME%:"%FINAL_FILE%.mp4"
 )
-if /i "%PRETYPE%"=="l" echo %CONFIRM_PRETYPE%:%PRESET_LIST1%
-if "%BEGINNER%"=="true" (
- 	 echo %CONFIRM_PRETYPE%:%PRESET_LIST0%
-) else (
-	if /i "%PRETYPE%"=="m" echo %CONFIRM_PRETYPE%:%PRESET_LIST2%
+if %BEGINNER%"=="true" (
+  echo %CONFIRM_PRETYPE%:%PRESET_LIST0%
+  if P_TEMPLEQ 900 (
+  
+  ) else set PRETYPE=m
+  goto enc_type_confirm
 )
+if /i "%PRETYPE%"=="l" echo %CONFIRM_PRETYPE%:%PRESET_LIST1%
+if /i "%PRETYPE%"=="m" echo %CONFIRM_PRETYPE%:%PRESET_LIST2%
 if /i "%PRETYPE%"=="n" echo %CONFIRM_PRETYPE%:%PRESET_LIST3%
 if /i "%PRETYPE%"=="o" echo %CONFIRM_PRETYPE%:%PRESET_LIST4%
 if /i "%PRETYPE%"=="p" echo %CONFIRM_PRETYPE%:%PRESET_LIST5%
@@ -2003,6 +2012,7 @@ if /i "%PRETYPE%"=="y" (
       echo %CONFIRM_ACCOUNT1%:%CONFIRM_ACCOUNT3%
    )
 )
+:enc_type_confirm
 if /i not "%PRETYPE%"=="s" (
   if /i not "%PRETYPE%"=="y" (
       if /i "%ENCTYPE%"=="y" (
@@ -2204,7 +2214,7 @@ if /i "%SKIP_MODE%"=="true" (
       set CONVERT_FPS=-r 30
     )
    )
-   exit /b
+   goto error_report_write
 )
 echo;
 echo ^>^>%CONFIRM_LAST1%
@@ -2372,8 +2382,11 @@ if not "%VFR%"=="true" (
 if defined DEFAULT_SIZE_PREMIUM_TEMP set DEFAULT_SIZE_PREMIUM=%DEFAULT_SIZE_PREMIUM_TEMP%
 if defined P_TEMP_BITRATE2 set P_TEMP_BITRATE=%P_TEMP_BITRATE2%
 
-if /i "%CONFIRM%"=="y" (
+if /i not "%CONFIRM%"=="y" goto return_to_confirm
+
+:error_report_write
 (
+if "%BEGINNER%"=="true" echo HARUTYPE     : %HARUTYPE%
 echo PRETYPE      : %PRETYPE%
 if /i "%PRETYPE%"=="t" echo CRFTYPE      : %CRFTYPE%
 if /i "%PRETYPE%"=="y" echo YTTYPE       : %YTTYPE%
@@ -2440,10 +2453,10 @@ rem          ..\..\sed.exe -i -e "s/^set DEFAULT_WIDTH=[0-9]\{,9\}/set DEFAULT_W
    if "%A_GAINS%"=="y" (
        ..\..\sed.exe -i -e "s/^set A_GAIN=[-\+0-9a-zA-Z\.]\{,9\}/set A_GAIN=%A_GAIN%/" "..\..\..\setting\enc_setting.bat"
    )
-   cd ..\..
-   exit /b
-)
+cd ..\..
+exit /b
 
+:return_to_confirm
 echo ^>^>%RETURN_MESSAGE1%
 echo;
 if not "%HARUMODE%"=="true" (

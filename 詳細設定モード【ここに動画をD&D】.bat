@@ -541,13 +541,15 @@ if not exist %INPUT_FILE_PATH% (
 )
 
 date /t>nul
-echo %INPUT_FILE_TYPE% | "%WINDIR%\system32\findstr.exe" /i ".mswmm .wlmp .vsp .nvp2 .aup .nmm">nul
+echo %INPUT_FILE_TYPE% | "%WINDIR%\system32\findstr.exe" /i ".mswmm .wlmp .vsp .nvp2 .aup .nmm .exo .ksp">nul
 if not ERRORLEVEL 1 (
     echo ^>^>%PROJECTFILE_ERROR1%
     if /i "%INPUT_FILE_TYPE%"==".mswmm" echo ^>^>%PROJECTFILE_ERROR2% 
     if /i "%INPUT_FILE_TYPE%"==".wlmp" echo ^>^>%PROJECTFILE_ERROR3% 
     if /i "%INPUT_FILE_TYPE%"==".aup" echo ^>^>%PROJECTFILE_ERROR4% 
     if /i "%INPUT_FILE_TYPE%"==".nmm" echo ^>^>%PROJECTFILE_ERROR5% 
+    if /i "%INPUT_FILE_TYPE%"==".exo" echo ^>^>%PROJECTFILE_ERROR6% 
+    if /i "%INPUT_FILE_TYPE%"==".ksp" echo ^>^>%PROJECTFILE_ERROR7% 
     call .\quit.bat
 )
 
@@ -644,13 +646,15 @@ set ORIGINAL_AUDIO="%~1"
 set ENC_MODE=SEQUENCE
 
 date /t>nul
-echo %INPUT_FILE_TYPE% | "%WINDIR%\system32\findstr.exe" /i ".mswmm .wlmp .vsp .nvp2 .aup .nmm">nul
+echo %INPUT_FILE_TYPE% | "%WINDIR%\system32\findstr.exe" /i ".mswmm .wlmp .vsp .nvp2 .aup .nmm .exo .ksp">nul
 if not ERRORLEVEL 1 (
     echo ^>^>%PROJECTFILE_ERROR1%
     if /i "%INPUT_FILE_TYPE%"==".mswmm" echo ^>^>%PROJECTFILE_ERROR2% 
     if /i "%INPUT_FILE_TYPE%"==".wlmp" echo ^>^>%PROJECTFILE_ERROR3% 
     if /i "%INPUT_FILE_TYPE%"==".aup" echo ^>^>%PROJECTFILE_ERROR4% 
     if /i "%INPUT_FILE_TYPE%"==".nmm" echo ^>^>%PROJECTFILE_ERROR5% 
+    if /i "%INPUT_FILE_TYPE%"==".exo" echo ^>^>%PROJECTFILE_ERROR6% 
+    if /i "%INPUT_FILE_TYPE%"==".ksp" echo ^>^>%PROJECTFILE_ERROR7% 
     call .\quit.bat
 )
 
@@ -710,7 +714,7 @@ echo;
 if /i not "%ENC_TESTS%"=="y" shift
 
 if "%TEST_NUM%"=="1" (
-  if /i "%KEEPWAV%"=="true" (
+  if /i "%KEEPWAV%"=="y" (
     if exist %TEMP_WAV% (
       move /y %TEMP_WAV% "%MP4_DIR%\%FINAL_FILE%.wav" 1>nul 2>&1
     ) else (
@@ -822,13 +826,14 @@ if not ERRORLEVEL 1 (
   set ENC_MODE=MOVIEMUX
 )
 date /t>nul
-echo %INPUT_FILE_TYPE% | "%WINDIR%\system32\findstr.exe" /i ".mswmm .wlmp .vsp .nvp2 .aup .nmm">nul
+echo %INPUT_FILE_TYPE% | "%WINDIR%\system32\findstr.exe" /i ".mswmm .wlmp .vsp .nvp2 .aup .nmm .exo">nul
 if not ERRORLEVEL 1 (
     echo ^>^>%PROJECTFILE_ERROR1%
     if /i "%INPUT_FILE_TYPE%"==".mswmm" echo ^>^>%PROJECTFILE_ERROR2% 
     if /i "%INPUT_FILE_TYPE%"==".wlmp" echo ^>^>%PROJECTFILE_ERROR3% 
     if /i "%INPUT_FILE_TYPE%"==".aup" echo ^>^>%PROJECTFILE_ERROR4% 
     if /i "%INPUT_FILE_TYPE%"==".nmm" echo ^>^>%PROJECTFILE_ERROR5% 
+    if /i "%INPUT_FILE_TYPE%"==".exo" echo ^>^>%PROJECTFILE_ERROR6% 
     call .\quit.bat
 )
 
@@ -1119,7 +1124,7 @@ for %%i in (%CAT_WAV_LIST2%) do (
     if defined CAT_WAV_PATH (
         echo AudioDub^(AVISource^(^\
     ) else (
-        set KEEPWAV=false
+        set KEEPWAV=n
         echo AVISource^(^\
     )
     for /f "delims=" %%i in (%CAT_AVI_LIST2%) do echo "%%i", ^\

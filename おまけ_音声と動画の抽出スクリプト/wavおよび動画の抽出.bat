@@ -39,16 +39,16 @@ if not exist "..\tool\ffmpeg.exe" (
 
 set INPUT_FILE_PATH="%~1"
 set INPUT_FILE_TYPE=%~x1
-set INPUT_FILE_NAME="%~n1"
-set OUT_PATH="%~dp0"
+set INPUT_FILE_NAME=%~n1
+set OUT_PATH="%~dp0
 
 if /i "%INPUT_FILE_TYPE%"==".swf" goto swf
 if /i "%WAV%"=="y" (
-  ..\tool\ffmpeg.exe -y -i "%~1" -vn -c:a pcm_s16le "%~n1_out.wav"
+  ..\tool\ffmpeg.exe -y -i "%~1" -vn -c:a pcm_s16le "%OUT_PATH%\%%INPUT_FILE_NAME%_out.wav"
 )
 if /i not "%AUDIO%"=="y" goto movie
 set TEMP_INFO=temp_audio.txt
-..\tool\MediaInfo.exe --Inform=Audio;%%Format%% --LogFile=%TEMP_INFO% "%~1">nul
+..\tool\MediaInfo.exe --Inform=Audio;%%Format%% --LogFile=%TEMP_INFO% %INPUT_FILE_PATH%>nul
 for /f "delims=" %%i in (%TEMP_INFO%) do set AUDIO_FORMAT=%%i
 
 if "%AUDIO_FORMAT%"=="MPEG Audio" set AEXT=.mp3
@@ -59,16 +59,16 @@ if "%AUDIO_FORMAT%"=="Vorbis"     set AEXT=.ogg
 if "%AUDIO_FORMAT%"=="FLAC"       set AEXT=.flac
 del %TEMP_INFO%
 
-..\tool\ffmpeg.exe -y -i "%~1" -vn -c:a copy "%~n1%AEXT%"
+..\tool\ffmpeg.exe -y -i "%~1" -vn -c:a copy "%OUT_PATH%\%~n1%AEXT%"
 
 :movie
 if /i not "%MOVIE%"=="y" goto :eof
 if /i not "%MCODEC%"=="avi" (
   if /i "%MOVIE_AUDIO%"=="n" (
-    ..\tool\ffmpeg.exe -y -i "%~1" -c:v %MCODEC% -copyts -an "%~n1_out.avi"
+    ..\tool\ffmpeg.exe -y -i "%~1" -c:v %MCODEC% -copyts -an "%OUT_PATH%\%%INPUT_FILE_NAME%_out.avi"
     goto :eof
   ) else (
-    ..\tool\ffmpeg.exe -y -i "%~1" -c:v %MCODEC% -copyts -c:a pcm_s16le "%~n1_out.avi"
+    ..\tool\ffmpeg.exe -y -i "%~1" -c:v %MCODEC% -copyts -c:a pcm_s16le "%OUT_PATH%\%%INPUT_FILE_NAME%_out.avi"
     goto :eof
   )
 ) 
@@ -83,9 +83,9 @@ exit /b
 
 :swf
 rem swfextract.exe‚Í•Ê“r“üŽè‚·‚é•K—v‚ª‚ ‚è‚Ü‚·
-..\tool\swfextract.exe -m "%~1" -o "%~n1_out.mp3"
+..\tool\swfextract.exe -m "%~1" -o "%OUT_PATH%\%%INPUT_FILE_NAME%_out.mp3"
 if /i "%WAV%"=="y" (
-..\tool\ffmpeg.exe -y -i "%~n1_out.mp3" -vn -c:a pcm_s16le -ar 44100 "%~n1_out.wav"
+..\tool\ffmpeg.exe -y -i "%OUT_PATH%\%~n1_out.mp3" -vn -c:a pcm_s16le -ar 44100 "%OUT_PATH%\%%INPUT_FILE_NAME%_out.wav"
 )
 exit /b
 
@@ -288,7 +288,7 @@ if not exist "%TEMP_DIR%\yv12.txt" (
 
 if exist %TEMP_DIR%\yv12.txt (
 rem  .\avs2avi.exe "%INFO_AVS%" "%~dpn1_out.avi" -l "..\..\a2a_c_par" -w
-  .\avs2avi.exe "%INFO_AVS%" "%OUT_PATH:"=%\%INPUT_FILE_NAME:"=%_out.avi"  -w
+  .\avs2avi.exe "%INFO_AVS%" "%OUT_PATH%\%%INPUT_FILE_NAME%_out.avi"  -w
 )
 exit /b
 

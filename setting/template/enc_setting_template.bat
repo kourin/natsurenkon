@@ -1,4 +1,4 @@
-set ENC_VERSION=32
+set ENC_VERSION=33
 
 rem 口調の選択など、エンコード以外の設定は、user_setting.batにあります。
 rem 初期値がわからなくなった場合は、template\enc_setting_template.batをコピーしてください。
@@ -129,7 +129,7 @@ rem カラーマトリクス
 rem よく分からない場合は弄らないのが吉
 rem BT.601かBT.709を選択する
 rem Adobe Flash Playerの仕様がコロコロ変わるので、よほどのことがなければイジらないのが吉 
-set COLORMATRIX=BT.601
+set COLORMATRIX=BT.709
 
 rem フルレンジを有効にしたい場合はonにする
 rem フルレンジにした場合のデメリット(プレイヤー互換等)を認識している人のみ使用してください

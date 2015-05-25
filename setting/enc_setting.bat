@@ -1,4 +1,4 @@
-set ENC_VERSION=32
+set ENC_VERSION=33
 
 rem 口調の選択など、エンコード以外の設定は、user_setting.batにあります。
 rem 初期値がわからなくなった場合は、template\enc_setting_template.batをコピーしてください。
@@ -131,7 +131,7 @@ rem カラーマトリクス
 rem よく分からない場合は弄らないのが吉
 rem BT.601かBT.709を選択する
 rem Adobe Flash Playerの仕様がコロコロ変わるので、よほどのことがなければイジらないのが吉 
-set COLORMATRIX=BT.601
+set COLORMATRIX=BT.709
 
 rem フルレンジを有効にしたい場合はonにする
 rem フルレンジにした場合のデメリット(プレイヤー互換等)を認識している人のみ使用してください
@@ -157,12 +157,17 @@ rem 初期設定では、プレミアム会員の場合は、100*0.99 = 99 MB、一般会員の場合は、40
 rem 容量オーバーするときは「DEFAULT_SIZE_PERCENT=98.5」などと小さくしてみる
 set DEFAULT_SIZE_PERCENT=99.0
 
-rem YouTube用の設定 (GB)
+rem YouTube用のファイルサイズの設定 (GB)
 rem 上限は128 GBです。 (2014年9月20日現在)
 rem 15分を越える動画の投稿には、認証をして、上限を引き上げる必要があります。(最長 11時間。(2014年9月20日現在))
 set DEFAULT_SIZE_YOUTUBE_PARTNER=128
 set DEFAULT_SIZE_YOUTUBE_NORMAL=128
 rem YouTube用のCRFの設定は、y\high.bat を編集して指定してください
+
+rem YouTube用の音声エンコードの設定
+rem NeroAACenc用 (少し上で、set AAC_ENCODER=nero に設定している場合(デフォルト)
+set YOUTUBE_AUDIO=0.6
+
 
 rem FLV用mp3の容量の設定 (MB)
 rem 画像(jpg、png、bmp)とmp3を一緒にドロップした際は、(可能なら)FLVを生成しますが、この場合、FLVのファイルサイズ指定ができないため、
